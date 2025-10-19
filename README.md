@@ -46,6 +46,7 @@ python -u train.py model=Mistral-7B-Instruct-v0.3 datasets=[curri_dpo] loss=dpo 
 In this stage, the model type must be explicitly specified. For example, when using the Zephyr-7b-beta model, set the corresponding command parameter as follows:
 ```
 model=zephyr-7b-beta
+exp_name=zephyr-7b-beta_dpo_train
 ```
 This parameter should remain consistent with the configuration defined in the `config` file.
 Furthermore, ensure that all training parameters are aligned with those used during data processing. For instance:
@@ -82,6 +83,7 @@ The prompt used in MT-Bench is shown below:
     [The End of dialogue]
 ```
 For more details on the experimental setup and implementation, please refer to the paper "DiffCurri-DPO: Difficulty-Aware Curriculum for Direct Preference Optimization."
+
 
 
 
