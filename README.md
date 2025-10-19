@@ -41,7 +41,8 @@ python -u train.py model=Mistral-7B-Instruct-v0.3 datasets=[curri_dpo] loss=dpo 
 在论文中，我们采用了MT-Bench、SHP-2、WizardLM和UltraFeedback作为测试数据，并采用gpt-4.1进行评估。
 其中，MT-Bench的prompt如下：
 ```
-\textbf{[System]}\\
+
+$$\textbf{[System]}\\
     As an impartial judge, you need to evaluate the overall performance of the AI assistant in the following two rounds of dialogue. Please analyze according to the following formatting criteria.
     \textbf{[Evaluation Dimensions]}Contextual coherence: whether the second round of answers effectively takes into account the content of the first round, and whether the dialogue logic is natural and smooth. Comprehensive quality: aspects include practicality, accuracy, depth, and creativity. Gradual improvement: whether the second round of answers discusses details in depth based on the first round.
     \textbf{[Evaluation Process]}Briefly analyze, point out the good results of the two rounds of answers and finally give an overall score. The score range is 1-10, Keep two decimal places.
@@ -59,7 +60,9 @@ python -u train.py model=Mistral-7B-Instruct-v0.3 datasets=[curri_dpo] loss=dpo 
     {answer2}
     
     \textbf{[The End of dialogue]}
+$$
 ```
 其余具体细节请参考论文``DiffCurri-DPO: Difficulty-Aware Curriculum for Direct Preference Optimization''。
+
 
 
