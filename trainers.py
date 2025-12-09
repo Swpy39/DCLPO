@@ -292,8 +292,8 @@ class BasicTrainer(object):
             max_prompt_length=config.max_prompt_length,
             sft_mode=config.loss.name == 'sft',
         )
-        # numes:数据集名称
-        # shuffl:是否打乱数据
+        # nqmes:数据集名称
+        # shuffle:是否打乱数据
         # max_length:最大长度
         # max_prompt_length:最大prompt长度
         # 是否为SFT模式（通过检查config.loss.name）

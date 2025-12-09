@@ -12,13 +12,17 @@ import numpy as np
 from typing import Dict, List, Optional, Iterator, Callable, Union, Tuple
 from datasets import load_dataset
 import json
+from omegaconf import OmegaConf
 
+config = OmegaConf.load('./config/config.yaml')
+cmd_overrides = OmegaConf.from_cli()
+config = OmegaConf.merge(config, cmd_overrides)
 
-def curri_dpo(split: str, silent: bool = False, cache_dir: str = None, alpha: float = 0.0, curriculum_type: str = None) -> Dict[str, Dict]:
+def curri_dpo(split: str, silent: bool = False, config=config, cache_dir: str = None) -> Dict[str, Dict]:
     print(f"Loading ultrafeedback_curriculum_dpo_pairs {split} dataset...")
     data_file = {
-        "train": "./dataset/{}/ultrafeedback(alpha={}).json".format(curriculum_type, alpha),
-        "test": "./dataset/{}/ultrafeedback(alpha={}).json".format(curriculum_type, alpha)
+        "train": "./dataset/{}/ultrafeedback(alpha={}).json".format(config.curriculum_type, config.alpha),
+        "test": "./dataset/{}/ultrafeedback(alpha={}).json".format(config.curriculum_type, config.alpha)
     }.get(split)
     # 暂时不需要使用test进行测试，而是训练完一个模型之后对不同模型的效果进行比较
     if not data_file:
@@ -205,8 +209,7 @@ def get_batch_iterator(names: List[str],
                        seed: int = 0,
                        silent: bool = False,
                        cache_dir: Optional[str] = None,
-                       alpha: float = 0.0,
-                       curriculum_type: str = 'Three-Pairs') -> Iterator[Dict]:
+                       config=config) -> Iterator[Dict]:
     """
     此函数是一个生成批次数据的迭代器。
     参数：
@@ -251,7 +254,7 @@ def get_batch_iterator(names: List[str],
     done = False  # 终止标志
 
     # 加载复杂度文件，使得样本可以按照顺序进行输入
-    file_path = './dataset/{}/ultrafeedback_score_list(alpha={}).json'.format(curriculum_type, alpha)
+    file_path = './dataset/{}/ultrafeedback_score_list(alpha={}).json'.format(config.curriculum_type, config.alpha)
     with open(file_path, 'r', encoding='utf-8') as file:
         difficulty_json = json.load(file)
     difficulty_length = len(difficulty_json)
@@ -260,13 +263,15 @@ def get_batch_iterator(names: List[str],
     while True:
         if done:
             break
-        difficulty_score = difficulty_json[current_difficulty_num]
+
         for prompt, responses, pairs, sft, difficulty, truncation_mode in flat_data:
             if done:
                 break
-
             # 调用tokenizer_batch_element处理特定的偏好对
             for num in range(len(pairs)):
+                if done:
+                    break
+                difficulty_score = difficulty_json[current_difficulty_num]
                 if difficulty[num] == difficulty_score:
                     batch_element = tokenize_batch_element(prompt,
                                                            responses[pairs[num][0]],  # chosen响应
@@ -284,18 +289,18 @@ def get_batch_iterator(names: List[str],
                     rank0_print("当前数据处理进程： ", current_difficulty_num)
                     rank0_print("当前的难度分数： ", difficulty_score)
 
-        if current_difficulty_num == difficulty_length:
-            rank0_print("数据处理完成！")
-            with TemporarilySeededRandom(next(permutation_seeds)):
-                random.shuffle(batch)
+                if current_difficulty_num == difficulty_length:
+                    rank0_print("数据处理完成！")
+                    # with TemporarilySeededRandom(next(permutation_seeds)):
+                    #     random.shuffle(batch)
 
-            for i in range(0, len(batch), batch_size):
-                mini_batch = batch[i:i + batch_size]
-                if len(mini_batch) == 0:  # 新增检查
-                    continue
-                collated = collate_fn(mini_batch)
-                yield collated
-            done = True
+                    for i in range(0, len(batch), batch_size):
+                        mini_batch = batch[i:i + batch_size]
+                        if len(mini_batch) == 0:  # 新增检查
+                            continue
+                        collated = collate_fn(mini_batch)
+                        yield collated
+                    done = True
     print(f'FINISHED EXAMPLES on {split} split')
     print(f"最终{split}样本数量： ", example_idx)
 
