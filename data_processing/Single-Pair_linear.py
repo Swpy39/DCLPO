@@ -224,6 +224,8 @@ def linear_single_pair(ppd_datas, pc_datas, alpha):
         for difficulty in data['difficulty']:
             difficulty_score_list.append(difficulty)
 
+    difficulty_score_list = sorted(difficulty_score_list)
+
     with open("../dataset/Single-Pair/ultrafeedback_score_list(alpha={}).json".format(alpha), 'w',
               encoding='utf-8') as f:
         json.dump(difficulty_score_list, f, ensure_ascii=False, indent=4)

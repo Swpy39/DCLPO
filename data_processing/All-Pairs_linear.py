@@ -207,7 +207,7 @@ def linear_single_pair(ppd_datas, pc_datas, alpha):
                 results[prompt]['sft'].append(response['responses'][0])
         for pc_data in pc_datas:
             if pc_data['prompt'] == prompt:
-                pc_score = pc_data['PC_score']
+                pc_score = pc_data['PC_gpt_score']
                 print("pc_score: ", pc_score)
                 difficulty_score = alpha * ppd_score + (1 - alpha) * pc_score
                 print("difficulty_score: ", difficulty_score)
@@ -223,13 +223,15 @@ def linear_single_pair(ppd_datas, pc_datas, alpha):
         for difficulty in data['difficulty']:
             difficulty_score_list.append(difficulty)
 
+    difficulty_score_list = sorted(difficulty_score_list)
+
     with open("../dataset/All-Pairs/ultrafeedback_score_list(alpha={}).json".format(alpha), 'w',
               encoding='utf-8') as f:
         json.dump(difficulty_score_list, f, ensure_ascii=False, indent=4)
 
 
 if __name__ == "__main__":
-    alpha = 0.0
+    alpha = 0.5
     embedding_model_path = '../models/bge-m3'
 
     pc_datas = PC_result()
