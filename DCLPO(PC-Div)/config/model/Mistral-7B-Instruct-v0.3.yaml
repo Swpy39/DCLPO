@@ -8,8 +8,8 @@ policy_dtype: bfloat16
 fsdp_policy_mp: bfloat16
 reference_dtype: bfloat16
 
-resume_from_checkpoint_policy: False  # 是否从断点恢复训练
+resume_from_checkpoint_policy: False
 resume_dir_policy: None
 
-resume_from_checkpoint_ref: False  # 是否从断点恢复训练
+resume_from_checkpoint_ref: False
 resume_dir_ref: None
