@@ -151,7 +151,7 @@ if __name__ == "__main__":
             
             for pc_data in pc_datas:
                 if pc_data['prompt'] == prompt:
-                    pc_score = pc_data['PC_gpt_score']
+                    pc_score = pc_data['Score']
                     break
 
             difficulty_score = float(w1 * pc_score + w2 * S_js)
