@@ -82,7 +82,7 @@ The prompt used in MT-Bench is shown below:
     
     [The End of dialogue]
 ```
-For more details on the experimental setup and implementation, please refer to the paper "DiffCurri-DPO: Difficulty-Aware Curriculum for Direct Preference Optimization."
+For more details on the experimental setup and implementation, please refer to the paper "Modeling Structural Difficulty in Preference Data for Large Language Model Alignment".
 
 
 
