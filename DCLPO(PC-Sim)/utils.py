@@ -167,10 +167,10 @@ class TemporarilySeededRandom:
 
         # Convert seed to a supported type
         if self.seed is not None:
-            if isinstance(self.seed, (np.integer, np.floating)):  # 处理numpy类型
+            if isinstance(self.seed, (np.integer, np.floating)):
                 seed = int(self.seed)
             elif not isinstance(self.seed, (int, float, str, bytes, bytearray)):
-                seed = hash(str(self.seed)) % (2 ** 32)  # 其他类型转为hash int
+                seed = hash(str(self.seed)) % (2 ** 32)
             else:
                 seed = self.seed
         else:
