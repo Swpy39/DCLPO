@@ -78,18 +78,16 @@ n_eval_examples: 50
 trainer: BasicTrainer
 
 # The optimizer to use; we use RMSprop because it works about as well as Adam and is more memory-efficient
-# 使用的优化器；我们使用 RMSprop，因为它的效果与 Adam 差不多，而且内存效率更高
-optimizer: AdamW   # 论文使用Adam
+optimizer: AdamW
 
 # number of linear warmup steps for the learning rate
-warmup_steps: 89 # 10%训练步数：30000/8/10=375  15000----187   5000-----62  # 2386/8/10=30   7158-----89   14316-----179
+warmup_steps: 187
 
 # whether or not to use activation/gradient checkpointing
 activation_checkpointing: false
 
 # evaluate and save model every eval_every steps
-# 每 eval_every 步骤评估并保存模型
-eval_every: 50000  # 5000样本 / 32批次 ≈ 156步
+eval_every: 50000
 
 # prevent wandb from logging more than once per minimum_log_interval_secs
 minimum_log_interval_secs: 1.0
@@ -104,19 +102,19 @@ smooth: false
 #  the reference model
 beta: 0.1
 
-# λ参数
-adaptive_lambda: 2.3026  #2.3026(0.1)///1.6094(0.2)///1.20405(0.3)///2.9957(0.05)///4.6052（0.01）///0.9163（0.4）
+# λ
+adaptive_lambda: 2.3026
 
 
 # if true, use a uniform (maximum entropy) reference model
 reference_free: false
 
-# 控制PPD和PC的超参数：α
+# α
 alpha: 0.0
 
 # Curriculum_type
-curriculum_type: Three-Pairs
+curriculum_type: N-Pairs
 
+# α -- (w1,w2)
 w1: 1.0
 w2: 0
-w3: 0
