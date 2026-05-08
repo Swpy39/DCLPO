@@ -1,6 +1,6 @@
 
-name_or_path: /home/data/model/zephyr-7b-beta
-tokenizer_name_or_path: /home/data/model/zephyr-7b-beta
+name_or_path: /home/data/model/Mistral-7B-Instruct-v0.3
+tokenizer_name_or_path: /home/data/model/Mistral-7B-Instruct-v0.3
 archive: null
 block_name: MistralDecoderLayer
 
