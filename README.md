@@ -19,7 +19,7 @@ During the experimental phase, we conducted evaluations using the [HuggingFaceH4
 ### Data_Processing
 In this paper, we designed three distinct curriculum learning strategies: Single-Pair, N-Pairs, and All-Pairs.
 Before training the model, the following data preparation steps are required:
-Prior to running the code, the parameter should be initialized (ranging from 0.0 to 1.0).
+Prior to running the code, the parameter w1 and w2 should be initialized (ranging from 0.0 to 1.0).
 ##### Single-Pair
 ```
 python Single-Pair.py
