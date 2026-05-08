@@ -45,20 +45,11 @@ def rank0_print(*args, **kwargs):
 
 def get_local_dir(prefixes_to_resolve: List[str]) -> str:
     """Return the path to the cache directory for this user."""
-    # 函数目的：为用户获取缓存目录路径
-    # 参数：前缀路径列表（按优先级排序）
-    # 返回值：可用的缓存目录路径（格式：前缀路径/用户名）
     for prefix in prefixes_to_resolve:
-        # 遍历提供的前缀路径列表
         if os.path.exists(prefix):
-            # 检查当前前缀路径是否存在
             return f"{prefix}/{getpass.getuser()}"
-            # 如果存在，返回该路径下以当前用户名命名的子目录路径
-    # 如果所有前缀路径都不存在：
     os.makedirs(prefix)
-    # 创建最后一个前缀路径（注意：这里使用循环结束后的prefix变量，即列表最后一个元素）
     return f"{prefix}/{getpass.getuser()}"
-    # 返回新创建路径下以当前用户名命名的子目录路径
     
 
 def get_local_run_dir(exp_name: str, local_dirs: List[str]) -> str:
@@ -176,10 +167,10 @@ class TemporarilySeededRandom:
 
         # Convert seed to a supported type
         if self.seed is not None:
-            if isinstance(self.seed, (np.integer, np.floating)):  # 处理numpy类型
+            if isinstance(self.seed, (np.integer, np.floating)):
                 seed = int(self.seed)
             elif not isinstance(self.seed, (int, float, str, bytes, bytearray)):
-                seed = hash(str(self.seed)) % (2 ** 32)  # 其他类型转为hash int
+                seed = hash(str(self.seed)) % (2 ** 32)
             else:
                 seed = self.seed
         else:
