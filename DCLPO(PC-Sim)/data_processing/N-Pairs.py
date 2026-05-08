@@ -83,7 +83,7 @@ def main(sim_datas, pc_datas, w1, w2):
                 results[prompt]['sft'] = response['responses'][0]
         for pc_data in pc_datas:
             if pc_data['prompt'] == prompt:
-                pc_score = pc_data['PC_gpt_score']
+                pc_score = pc_data['Score']
                 print("pc_score: ", pc_score)
                 difficulty_score = w1 * pc_score + w2 * sim_score
                 print("difficulty_score: ", difficulty_score)
