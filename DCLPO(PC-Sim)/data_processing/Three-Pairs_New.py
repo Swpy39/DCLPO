@@ -32,7 +32,6 @@ def prompt_responses():
 def compute_S_cos(embedding_model_path, prompt_datas):
     model = SentenceTransformer(embedding_model_path)
     sim_datas = []
-    # 收集responses用于编码
     for item in prompt_datas:
         prompt = item["prompt"]
         responses = item["responses"]
@@ -63,7 +62,6 @@ def compute_S_cos(embedding_model_path, prompt_datas):
 
 def main(sim_datas, pc_datas, w1, w2):
     results = {}
-    # 初始化
     for sim_data in sim_datas:
         prompt = sim_data['prompt']
         results[prompt] = {}
@@ -75,7 +73,7 @@ def main(sim_datas, pc_datas, w1, w2):
     prompt_response = prompt_responses()
 
     for num, data in enumerate(sim_datas):
-        print("当前进程：", num)
+        print("Num: ", num)
         prompt = data['prompt']
         sim_score = data['sim_score']
         print("sim_score: ", sim_score)
@@ -91,7 +89,6 @@ def main(sim_datas, pc_datas, w1, w2):
                 print("difficulty_score: ", difficulty_score)
                 results[prompt]['difficulty'].append(difficulty_score)
 
-    # 保存三元组样本以及对应的难度分数
     with open("../dataset/Three-Pairs/HelpSteer(w1={},w2={}).json".format(w1,w2), 'w',
               encoding='utf-8') as f:
         json.dump(results, f, ensure_ascii=False, indent=4)
@@ -101,7 +98,6 @@ def main(sim_datas, pc_datas, w1, w2):
         for difficulty in data['difficulty']:
             difficulty_score_list.append(difficulty)
     
-    # 對文件進行中的分數進行排序
     difficulty_score_list = sorted(difficulty_score_list)
 
     with open("../dataset/Three-Pairs/HelpSteer_score_list(w1={},w2={}).json".format(w1,w2), 'w',
@@ -112,12 +108,8 @@ def main(sim_datas, pc_datas, w1, w2):
 if __name__ == "__main__":
     w1=0.0
     w2=1.0
-    w3=0
 
-    print("w1: ", w1)
-    print("w2: ", w2)
-
-    embedding_model_path = '/hpc2hdd/home/fye374/models/bge-m3'  ## m3e-base(768维）//////bge-m3（1024维） //////bce-embedding-base_v1（768维）
+    embedding_model_path = '/hpc2hdd/home/fye374/models/bge-m3'
 
     pc_datas = PC_result()
     prompt_datas = []
