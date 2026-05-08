@@ -6,7 +6,7 @@ import json
 from sentence_transformers import SentenceTransformer
 
 def build_anchors(embeddings: torch.Tensor, K=128, seed=42):
-    assert embeddings.dim() == 2, "embeddings 必须是 (N, D) 矩阵"
+    assert embeddings.dim() == 2, "embeddings are (N, D)"
     device = embeddings.device
     print("k:",K)
     embeddings = F.normalize(embeddings, p=2, dim=1).cpu()
