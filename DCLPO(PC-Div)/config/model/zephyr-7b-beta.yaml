@@ -1,4 +1,4 @@
-# 模型配置
+# model_path
 name_or_path: /home/data/model/zephyr-7b-beta
 tokenizer_name_or_path: /home/data/model/zephyr-7b-beta
 archive: null
