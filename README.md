@@ -56,7 +56,6 @@ Maintaining consistency between data preparation and training configurations is 
 
 ### Evaluation
 In this paper, we used MT-Bench, SHP-2, WizardLM, and UltraFeedback as evaluation datasets.
-The evaluation process was conducted using GPT-4.1 as the scoring and analysis model.
 
 For more details on the experimental setup and implementation, please refer to the paper "Modeling Structural Difficulty in Preference Data for Large Language Model Alignment".
 
