@@ -1,6 +1,6 @@
-# DiffCurri-DPO: Difficulty-Aware Curriculum for Direct Preference Optimization
+# Modeling Structural Difficulty in Preference Data for Large Language Model Alignment
 
-This is the open code of the paper ``DiffCurri-DPO: Difficulty-Aware Curriculum for Direct Preference Optimization''.
+This is the open code of the paper ``Modeling Structural Difficulty in Preference Data for Large Language Model Alignment''.
 
 ### Environment
 ```
@@ -10,32 +10,32 @@ pip install -r requirements.txt
 ```
 
 ### Dataset
-We utilized the open-source dataset [ServiceNow-AI/Curriculum_DPO_preferences](https://huggingface.co/datasets/ServiceNow-AI/Curriculum_DPO_preferences) in this project to support model training and evaluation. We would like to acknowledge and thank the authors and contributors of this dataset for their valuable work and contributions to the open-source community.
+We utilized the open-source dataset [ServiceNow-AI/Curriculum_DPO_preferences](https://huggingface.co/datasets/ServiceNow-AI/Curriculum_DPO_preferences) and [nvidia/HelpSteer](https://huggingface.co/datasets/nvidia/HelpSteer) in this project to support model training and evaluation. We would like to acknowledge and thank the authors and contributors of this dataset for their valuable work and contributions to the open-source community.
 
 ### Model
-During the experimental phase, we conducted evaluations using the Zephyr-7b-beta and Mistral-7B-Instruct-v0.3 models. The bge-m3 model was utilized for embedding conversion.
+During the experimental phase, we conducted evaluations using the [HuggingFaceH4/zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta) and [mistralai/Mistral-7B-Instruct-v0.3](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3) models. The [BAAI/bge-m3](https://huggingface.co/BAAI/bge-m3) model was utilized for embedding conversion.
 >All the models employed in this project are open-source, and we sincerely appreciate the efforts of their respective developers and contributors to the open-source community.
 
 ### Data_Processing
 In this paper, we employed the Multi-Dimensional Curriculum Learning (Multi-Dimensional CL) approach for data processing.
-We designed three distinct curriculum learning strategies: Single-Pair, Three-Pairs, and All-Pairs.
+We designed three distinct curriculum learning strategies: Single-Pair, N-Pairs, and All-Pairs.
 Before training the model, the following data preparation steps are required:
 Prior to running the code, the α (alpha) parameter should be initialized (ranging from 0.0 to 1.0) to ensure a proper linear relationship between PC and PPD.
 ##### Single-Pair
 ```
-python Single-Pair_linear.py
+python Single-Pair.py
 ```
-##### Three-Pairs
+##### N-Pairs
 ```
-python Three-Pairs_linear.py
+python N-Pairs.py
 ```
 ##### All-Pairs
 ```
-python All-Pairs_linear.py
+python All-Pairs.py
 ```
 After executing the code, you can verify whether the data has been successfully processed in the following directories:
 - dataset/Single-Pair
-- dataset/Three-Pairs
+- dataset/N-Pairs
 - dataset/All-Pairs
 
 ### Train
