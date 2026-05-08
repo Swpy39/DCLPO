@@ -1,19 +1,15 @@
-# 模型配置
-name_or_path: /hpc2hdd/home/fye374/models/Mistral-7B-Instruct-v0.3  # /hpc2hdd/home/fye374/models/zephyr-7b-beta
-tokenizer_name_or_path: /hpc2hdd/home/fye374/models/Mistral-7B-Instruct-v0.3  # /home/data/model/zephyr-7b-beta/
-archive: null  # 如果从SFT加载，需指定路径如：/path/to/sft/model.pt
+
+name_or_path: /home/data/model/Mistral-7B-Instruct-v0.3
+tokenizer_name_or_path: /home/data/model/Mistral-7B-Instruct-v0.3
+archive: null
 block_name: MistralDecoderLayer
 
-# 训练精度设置
 policy_dtype: bfloat16
 fsdp_policy_mp: bfloat16
-reference_dtype: bfloat16  # 参考模型也应该保持float16
+reference_dtype: bfloat16
 
-#
-resume_from_checkpoint_policy: False  # 是否从断点恢复训练
+resume_from_checkpoint_policy: False
 resume_dir_policy: None
-# resume_dir存放policy.pt、optimizer.pt、scheduler.pt的目录
 
-resume_from_checkpoint_ref: False  # 是否从断点恢复训练
+resume_from_checkpoint_ref: False
 resume_dir_ref: None
-# resume_dir存放policy.pt、optimizer.pt、scheduler.pt的目录
